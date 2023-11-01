@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//var boardRouter = require('./routes/board')// Board endpoint
+var chooseRouter = require('./routes/choose') //Search results for choose
 var furnitureRouter = require('./routes/furniture');// Search results endpoint
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use ('/choose', chooseRouter);
 app.use('/board', (req, res) => {
   let query = req.query;
   console.log(`rows ${query.rows}`);

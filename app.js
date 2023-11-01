@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var furnitureRouter = require('./routes/furniture');
+//var boardRouter = require('./routes/board')// Board endpoint
+var furnitureRouter = require('./routes/furniture');// Search results endpoint
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -19,6 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/board', (req, res) => {
+  let query = req.query;
+  console.log(`rows ${query.rows}`);
+  console.log(`cols ${query.cols}`);
+  res.render('board', {title:'Board', query:query});
+});
 
 app.use('/furniture', furnitureRouter);
 app.use('/', indexRouter);
